@@ -7,28 +7,19 @@
 // *********************************
 // Main module
 // *********************************
-module project1_task2_1 (output wire f,
-			 input wire 	  a,b,c,d,clk);
+module top(output wire f,
+			 input wire a,b,c,d,clk);
    // Combinational Logic
-   reg 					  h, g, n , j, k;
-   always @ (a, b, c, d, j)
-     begin
-	h = a ~| b; // NOR gate
-	g = b ^ c;  // XOR gate
-	n = c ~& d; // NAND
-	j = n | f ; // OR
-     end
-   // Connect to Mux
-   dflipflop U1 (.D(j), .Q(k), .Qn(k),.CLK(clk));
-   mux2to1 U2 (.F(f), .H(h), .G(g), .SEL(k));
+   dff U1 (.D(j), .Q(k), .Qn(k),.CLK(clk));
+   m2to1 U2 (.F(m), .H(h), .G(g), .SEL(k));
 
-endmodule // project1_task2_1
+endmodule 
 // ********************************
 // *********************************
 // Flip Flop
 // *********************************
 // verilator lint_off DECLFILENAME 
-module dflipflop ( output reg Q, Qn,
+module dff ( output reg Q, Qn,
 		   input wire CLK, D);
 // verilator lint_on DECLFILENAME 
    always @ (posedge CLK)
@@ -42,17 +33,27 @@ endmodule // dflipflop
 // **********************************
 // Mux 2to1
 // **********************************
-module mux2to1( H, G, SEL, F);
-   input wire H, G, SEL;
-   output reg F;
-
-   always @(H or G or SEL)
-     begin
-	if(SEL) 
-	  F= G;
-	else
-	  F=H;
-     end
+module m2to1( input H, G, sel,
+		output reg F);
+   always @(H or G or sel)
+	begin
+     F = sel ? a : b;
+	end
 endmodule
 // *********************************
+// Combinational Logic
+// ********************************
+module combo ( input a , b, c, d
+		output reg f);
+wire h, g, n, j, k;
 
+	always @ (a or b or c or d) 
+	begin
+	
+	h = ~(a | b); // NOR gate
+	g = b ^ c;  // XOR gate
+	n = ~(c & d); // NAND
+	j = n | m ; // OR
+	f = m;
+	end
+endmodule
