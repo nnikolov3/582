@@ -1,6 +1,6 @@
 #@ # 
 #@ # Running fm_shell Version N-2017.09-SP2 for linux64 -- Nov 16, 2017
-#@ # Date:   Sun Jul 12 20:45:28 2020
+#@ # Date:   Sun Jul 12 21:57:20 2020
 #@ # Run by: nnikolov@mo.ece.pdx.edu
 #@ 
 
@@ -47,7 +47,10 @@ source /pkgs/synopsys/2017/formality/admin/setup/.synopsys_fm.setup
 #@ #alias q quit
 #@ # -- End source /pkgs/synopsys/2017/formality/admin/setup/.synopsys_fm.setup
 
-read_verilog -r project1_task2_1.v 
-read_verilog -r project1_task2_2.v
-set_top project1_task2_1
+read_verilog -r {project1_task2_1.v project1_task2_2.v} 
+set_top top
+read_verilog -i project1_task2_1.v 
+set_top top
+match
+verify
 quit

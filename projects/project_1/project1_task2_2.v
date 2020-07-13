@@ -3,56 +3,57 @@
 // ECE582
 // Nikolay Nikolov
 // Summer 2020
-// Task 2_1
+// Task 2_2
 // *********************************
-// Main module
+// Top module
 // *********************************
-module project1_task2_1 (output wire f,
-			 input wire 	  a,b,c,d,clk);
-   // Combinational Logic
-   wire 					  h, g, n , j, k, m;
-   always @ (a, b, c, d, j)
-     begin
-	h = ~(a | b); // NOR gate
-	g = b & c;  // XOR gate
-	n = ~(c & d); // NAND
-	j = n ^ m ; // OR
-	f = m;
-     end
-   // Connect to Mux
-   dff U1 (.D(j), .Q(k), .Qn(k),.CLK(clk));
-   m2to1 U2 (.F(m), .H(h), .G(g), .SEL(k));
+module top(output wire f,
+    input wire a,b,c,d,clk);
+// Combinational Logic
 
-endmodule // project1_task2_1
-// ********************************
+wire h, g, n, j, k;
+combo U1 (.a(a), .b(b), .c(c), .d(d), .f(f), .h(h), .g(g), .n(n), .j(j));
+dff U2 (.D(j), .Q(k),.clk(clk));
+m2to1 U3 (.F(f), .H(h), .G(g), .sel(k));
+
+endmodule 
 // *********************************
 // Flip Flop
 // *********************************
 // verilator lint_off DECLFILENAME 
 module dff ( output reg Q, Qn,
-		   input wire CLK, D);
+    input wire clk, D);
 // verilator lint_on DECLFILENAME 
-   always @ (posedge CLK)
-     begin
-	Q <= D;
-	Qn <= ~D;
-     end
+always @ (posedge clk)
+begin
+    Q <= D;
+    Qn <= ~D;
+end
 endmodule // dflipflop
 
 // **********************************
-// **********************************
 // Mux 2to1
 // **********************************
-module m2to1( H, G, SEL, F);
-   input wire H, G, SEL;
-   output reg F;
-
-   always @(H or G or SEL)
-     begin
-	if(SEL) 
-	  F= G;
-	else
-	  F=H;
-     end
+module m2to1( input wire H, G, sel,
+    output reg F);
+always @(H or G or sel)
+begin
+    F = sel ? H : G;
+end
 endmodule
 // *********************************
+// Combinational Logic
+// ********************************
+module combo ( input a ,b, c, d ,f,
+                output reg h, g, n, j);
+
+always @ (a or b or c or d or f) 
+begin
+
+    h = ~(a | b); // NOR gate
+    g = b & c;  // XOR gate
+    n = ~(c & d); // NAND
+    j = n ^ f ; // OR
+end
+endmodule
+

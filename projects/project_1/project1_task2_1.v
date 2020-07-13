@@ -5,55 +5,53 @@
 // Summer 2020
 // Task 2_1
 // *********************************
-// Main module
+// Top module
 // *********************************
-module top(output wire f,
-			 input wire a,b,c,d,clk);
-   // Combinational Logic
-   dff U1 (.D(j), .Q(k), .Qn(k),.CLK(clk));
-   m2to1 U2 (.F(m), .H(h), .G(g), .SEL(k));
+module top(output reg f,
+    input wire a,b,c,d,clk);
+// Combinational Logic
+wire g, h, n, j, k;
+combo U1 (.a(a), .b(b), .c(c), .d(d), .f(f), .h(h), .g(g), .n(n), .j(j));
+dff U2 (.D(j), .Q(k),.clk(clk));
+m2to1 U3 (.F(f), .H(h), .G(g), .sel(k));
 
 endmodule 
-// ********************************
 // *********************************
 // Flip Flop
 // *********************************
 // verilator lint_off DECLFILENAME 
 module dff ( output reg Q, Qn,
-		   input wire CLK, D);
+    input wire clk, D);
 // verilator lint_on DECLFILENAME 
-   always @ (posedge CLK)
-     begin
-	Q <= D;
-	Qn <= ~D;
-     end
+always @ (posedge clk)
+begin
+    Q <= D;
+    Qn <= ~D;
+end
 endmodule // dflipflop
 
-// **********************************
 // **********************************
 // Mux 2to1
 // **********************************
 module m2to1( input H, G, sel,
-		output reg F);
-   always @(H or G or sel)
-	begin
-     F = sel ? a : b;
-	end
+    output reg F);
+always @(H or G or sel)
+begin
+    F = sel ? G : H;
+end
 endmodule
 // *********************************
 // Combinational Logic
 // ********************************
-module combo ( input a , b, c, d
-		output reg f);
-wire h, g, n, j, k;
+module combo ( input wire a , b, c, d ,f,
+                output reg h, g, n, j);
 
-	always @ (a or b or c or d) 
-	begin
-	
-	h = ~(a | b); // NOR gate
-	g = b ^ c;  // XOR gate
-	n = ~(c & d); // NAND
-	j = n | m ; // OR
-	f = m;
-	end
+always @ (a or b or c or d or f) 
+begin
+
+    h = ~(a | b); // NOR gate
+    g = b ^ c;  // XOR gate
+    n = ~(c & d); // NAND
+    j = n | f ; // OR
+end
 endmodule
