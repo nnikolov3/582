@@ -16,8 +16,8 @@ module project1_task1_1 (output wire a,
    assign m0 = x1 & y1;
    assign m2 = x2 & y2;
    // NOR
-   assign m1 = x1 ~| y1;
-   assign m3 = x2 ~| y2;
+   assign m1 = ~(x1 | y1);
+   assign m3 = ~(x2 | y2);
    // OR
    assign a0 = m0 | m1;
    assign a1 = m2 | m3;
