@@ -1,0 +1,245 @@
+ik@nik~/Documents/582_PROJ/projects/project_3/smv_files $  NuSMV -int
+*** This is NuSMV 2.6.0 (compiled on Wed Oct 14 15:34:35 2015)
+
+NuSMV > read_model -i counter.smv
+NuSMV > flatten_hierarchy 
+NuSMV > encode_variables 
+NuSMV > build_model 
+NuSMV > pick_state -i
+
+***************  AVAILABLE STATES  *************
+  
+  ================= State =================
+  0) -------------------------
+  bit0.carry_out = FALSE
+  bit0.value = FALSE
+  bit1.carry_out = FALSE
+  bit1.value = FALSE
+  bit2.carry_out = FALSE
+  bit2.value = FALSE
+  
+There's only one available state. Press Return to Proceed.
+
+Chosen state is: 0
+NuSMV > simulate 0
+
+
+*** Warning: Parameter "steps" is deprecated. Use option "-k" instead
+********  Simulation Starting From State 1.1   ********
+NuSMV > simulate -r -k 3
+********  Simulation Starting From State 1.1   ********
+NuSMV > show_traces -tThere is 1 trace currently available.
+NuSMV > show_traces -v
+    <!-- ################### Trace number: 1 ################### -->
+Trace Description: Simulation Trace 
+Trace Type: Simulation 
+  -> State: 1.1 <-
+    bit0.value = FALSE
+    bit1.value = FALSE
+    bit2.value = FALSE
+    bit0.carry_out = FALSE
+    bit1.carry_out = FALSE
+    bit2.carry_out = FALSE
+  -> State: 1.2 <-
+    bit0.value = TRUE
+    bit1.value = FALSE
+    bit2.value = FALSE
+    bit0.carry_out = TRUE
+    bit1.carry_out = FALSE
+    bit2.carry_out = FALSE
+  -> State: 1.3 <-
+    bit0.value = FALSE
+    bit1.value = TRUE
+    bit2.value = FALSE
+    bit0.carry_out = FALSE
+    bit1.carry_out = FALSE
+    bit2.carry_out = FALSE
+  -> State: 1.4 <-
+    bit0.value = TRUE
+    bit1.value = TRUE
+    bit2.value = FALSE
+    bit0.carry_out = TRUE
+    bit1.carry_out = TRUE
+    bit2.carry_out = FALSE
+    
+NuSMV > simulate -r -k 8
+********  Simulation Starting From State 1.4   ********
+NuSMV > show_traces -v  
+    <!-- ################### Trace number: 1 ################### -->
+Trace Description: Simulation Trace 
+Trace Type: Simulation 
+  -> State: 1.1 <-
+    bit0.value = FALSE
+    bit1.value = FALSE
+    bit2.value = FALSE
+    bit0.carry_out = FALSE
+    bit1.carry_out = FALSE
+    bit2.carry_out = FALSE
+  -> State: 1.2 <-
+    bit0.value = TRUE
+    bit1.value = FALSE
+    bit2.value = FALSE
+    bit0.carry_out = TRUE
+    bit1.carry_out = FALSE
+    bit2.carry_out = FALSE
+  -> State: 1.3 <-
+    bit0.value = FALSE
+    bit1.value = TRUE
+    bit2.value = FALSE
+    bit0.carry_out = FALSE
+    bit1.carry_out = FALSE
+    bit2.carry_out = FALSE
+  -> State: 1.4 <-
+    bit0.value = TRUE
+    bit1.value = TRUE
+    bit2.value = FALSE
+    bit0.carry_out = TRUE
+    bit1.carry_out = TRUE
+    bit2.carry_out = FALSE
+  -> State: 1.5 <-
+    bit0.value = FALSE
+    bit1.value = FALSE
+    bit2.value = TRUE
+    bit0.carry_out = FALSE
+    bit1.carry_out = FALSE
+    bit2.carry_out = FALSE
+  -> State: 1.6 <-
+    bit0.value = TRUE
+    bit1.value = FALSE
+    bit2.value = TRUE
+    bit0.carry_out = TRUE
+    bit1.carry_out = FALSE
+    bit2.carry_out = FALSE
+  -> State: 1.7 <-
+    bit0.value = FALSE
+    bit1.value = TRUE
+    bit2.value = TRUE
+    bit0.carry_out = FALSE
+    bit1.carry_out = FALSE
+    bit2.carry_out = FALSE
+  -> State: 1.8 <-
+    bit0.value = TRUE
+    bit1.value = TRUE
+    bit2.value = TRUE
+    bit0.carry_out = TRUE
+    bit1.carry_out = TRUE
+    bit2.carry_out = TRUE
+  -> State: 1.9 <-
+    bit0.value = FALSE
+    bit1.value = FALSE
+    bit2.value = FALSE
+    bit0.carry_out = FALSE
+    bit1.carry_out = FALSE
+    bit2.carry_out = FALSE
+  -> State: 1.10 <-
+    bit0.value = TRUE
+    bit1.value = FALSE
+    bit2.value = FALSE
+    bit0.carry_out = TRUE
+    bit1.carry_out = FALSE
+    bit2.carry_out = FALSE
+  -> State: 1.11 <-
+    bit0.value = FALSE
+    bit1.value = TRUE
+    bit2.value = FALSE
+    bit0.carry_out = FALSE
+    bit1.carry_out = FALSE
+    bit2.carry_out = FALSE
+  -> State: 1.12 <-
+    bit0.value = TRUE
+    bit1.value = TRUE
+    bit2.value = FALSE
+    bit0.carry_out = TRUE
+    bit1.carry_out = TRUE
+    bit2.carry_out = FALSE
+    
+    NuSMV > check_ctlspec -p "AX(bit0.value=TRUE)"                   
+-- specification AX bit0.value = TRUE  is true
+NuSMV > check_ctlspec -p "AX(bit1.value=TRUE)"
+-- specification AX bit1.value = TRUE  is false
+-- as demonstrated by the following execution sequence
+Trace Description: CTL Counterexample 
+Trace Type: Counterexample 
+  -> State: 2.1 <-
+    bit0.value = FALSE
+    bit1.value = FALSE
+    bit2.value = FALSE
+    bit0.carry_out = FALSE
+    bit1.carry_out = FALSE
+    bit2.carry_out = FALSE
+  -> State: 2.2 <-
+    bit0.value = TRUE
+    bit0.carry_out = TRUE
+NuSMV > check_ctlspec -p "EX(bit1.value=TRUE)"
+-- specification EX bit1.value = TRUE  is false
+-- as demonstrated by the following execution sequence
+Trace Description: CTL Counterexample 
+Trace Type: Counterexample 
+  -> State: 3.1 <-
+    bit0.value = FALSE
+    bit1.value = FALSE
+    bit2.value = FALSE
+    bit0.carry_out = FALSE
+    bit1.carry_out = FALSE
+    bit2.carry_out = FALSE
+NuSMV > check_ctlspec -p "EF(bit1.value=TRUE)"
+-- specification EF bit1.value = TRUE  is true
+NuSMV > check_ctlspec -p "EF(bit2.value=TRUE)"
+-- specification EF bit2.value = TRUE  is true
+NuSMV > check_ctlspec -p "EF(bit0.value=TRUE)"
+-- specification EF bit0.value = TRUE  is true
+NuSMV > check_ctlspec -p "EX(bit0.value=TRUE)"
+-- specification EX bit0.value = TRUE  is true
+NuSMV > check_ctlspec -p "EX(bit0.value=FALSE)"
+-- specification EX bit0.value = FALSE  is false
+-- as demonstrated by the following execution sequence
+Trace Description: CTL Counterexample 
+Trace Type: Counterexample 
+  -> State: 4.1 <-
+    bit0.value = FALSE
+    bit1.value = FALSE
+    bit2.value = FALSE
+    bit0.carry_out = FALSE
+    bit1.carry_out = FALSE
+    bit2.carry_out = FALSE
+    
+NuSMV > check_ctlspec -p "AX(bit0.value=FALSE)"
+-- specification AX bit0.value = FALSE  is false
+-- as demonstrated by the following execution sequence
+Trace Description: CTL Counterexample 
+Trace Type: Counterexample 
+  -> State: 5.1 <-
+    bit0.value = FALSE
+    bit1.value = FALSE
+    bit2.value = FALSE
+    bit0.carry_out = FALSE
+    bit1.carry_out = FALSE
+    bit2.carry_out = FALSE
+  -> State: 5.2 <-
+    bit0.value = TRUE
+    bit0.carry_out = TRUE
+NuSMV > check_ctlspec -p "EF(bit0.value=FALSE)"
+-- specification EF bit0.value = FALSE  is true
+NuSMV > check_ctlspec -p "EF(bit0.carry_out=FALSE)"
+-- specification EF bit0.carry_out = FALSE  is true
+NuSMV > check_ctlspec -p "AX(bit0.carry_out=FALSE)"
+-- specification AX bit0.carry_out = FALSE  is false
+-- as demonstrated by the following execution sequence
+Trace Description: CTL Counterexample 
+Trace Type: Counterexample 
+  -> State: 6.1 <-
+    bit0.value = FALSE
+    bit1.value = FALSE
+    bit2.value = FALSE
+    bit0.carry_out = FALSE
+    bit1.carry_out = FALSE
+    bit2.carry_out = FALSE
+  -> State: 6.2 <-
+    bit0.value = TRUE
+    bit0.carry_out = TRUE
+NuSMV > check_ctlspec -p "AX(bit0.carry_out=TRUE)" 
+-- specification AX bit0.carry_out = TRUE  is true
+NuSMV > quit
+
+
+
