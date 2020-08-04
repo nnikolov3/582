@@ -1203,6 +1203,36 @@ Tasks:
 \end_layout
 
 \begin_layout Standard
+\begin_inset Graphics
+	filename /home/nik/Documents/582_PROJ/projects/project_3/assets/state_diagram_problem4
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+State Diagram for Microwave
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
@@ -1212,9 +1242,47 @@ Tasks:
  Your properties should be different from those proposed by other students.
 \end_layout
 
+\begin_layout Standard
+\noindent
+1.
+ If a Start signal occurs then there is eventually a closeDoor signal
+\end_layout
+
+\begin_layout Standard
+\noindent
+2.
+ If a Start signal occurs then there is eventually a not closeDoor signal
+\end_layout
+
+\begin_layout Standard
+\noindent
+3.
+ If eventually a Heat signal occurs then there is eventually a not Heat
+ signal
+\end_layout
+
+\begin_layout Standard
+\noindent
+4.
+ For all paths Heat signal will not occur until Start occurs
+\end_layout
+
+\begin_layout Standard
+\noindent
+5.
+ The signal closedDoor holds infinitely often
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align left
+6.
+ The signal Heat holds infinitely often
+\end_layout
+
 \begin_layout Subsubsection*
 3) Create Verilog test benches and run simulation to verify your properties,
- justify your testresult.
+ justify your test result.
  (show the test result in script form instead of wave form)
 \end_layout
 

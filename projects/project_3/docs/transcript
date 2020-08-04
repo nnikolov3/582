@@ -1,0 +1,20 @@
+# OpenFile source/tb_microwave.v
+vsim work.tb_microwave
+# vsim work.tb_microwave 
+# Start time: 21:06:11 on Aug 03,2020
+# Loading work.tb_microwave
+# Loading work.microwave
+add wave -r /*
+run -all
+#  States closeDoor startOven reset done 
+#  xxxx  x  x  x  x
+#  0000  x  x  x  x
+#  0000  0  1  0  0
+#  0000  1  1  0  0
+#  0000  0  1  0  0
+# ** Note: $finish    : source/tb_microwave.v(49)
+#    Time: 500 ns  Iteration: 0  Instance: /tb_microwave
+# 1
+# Break in Module tb_microwave at source/tb_microwave.v line 49
+# End time: 21:07:32 on Aug 03,2020, Elapsed time: 0:01:21
+# Errors: 0, Warnings: 0
