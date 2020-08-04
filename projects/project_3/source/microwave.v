@@ -1,10 +1,8 @@
 `timescale 1 ns/10 ps
 
 module microwave(input clk, sys_reset, reset, closeDoor, startOven, done, 
-output reg [3:0] States);
+output reg Start, Close, Heat, Error);
    
-   reg    Start, Close, Heat, Error;
-
    always @ (posedge clk)
      begin
         if (sys_reset == 1'b1)
@@ -37,9 +35,5 @@ output reg [3:0] States);
              endcase
           end
      end
-   always @ (*)
-       begin
-          States = {Start, Close, Heat, Error};
-       end
 endmodule // microwave
 

@@ -1,0 +1,317 @@
+** This is NuSMV 2.6.0 (compiled on Wed Oct 14 15:34:35 2015)
+*** Enabled addons are: compass
+*** For more information on NuSMV see <http://nusmv.fbk.eu>
+*** or email to <nusmv-users@list.fbk.eu>.
+*** Please report bugs to <Please report bugs to <nusmv-users@fbk.eu>>
+
+*** Copyright (c) 2010-2014, Fondazione Bruno Kessler
+
+*** This version of NuSMV is linked to the CUDD library version 2.4.1
+*** Copyright (c) 1995-2004, Regents of the University of Colorado
+
+*** This version of NuSMV is linked to the MiniSat SAT solver. 
+*** See http://minisat.se/MiniSat.html
+*** Copyright (c) 2003-2006, Niklas Een, Niklas Sorensson
+*** Copyright (c) 2007-2010, Niklas Sorensson
+
+WARNING *** This version of NuSMV is linked to the zchaff SAT         ***
+WARNING *** solver (see http://www.princeton.edu/~chaff/zchaff.html). ***
+WARNING *** Zchaff is used in Bounded Model Checking when the         ***
+WARNING *** system variable "sat_solver" is set to "zchaff".          ***
+WARNING *** Notice that zchaff is for non-commercial purposes only.   ***
+WARNING *** NO COMMERCIAL USE OF ZCHAFF IS ALLOWED WITHOUT WRITTEN    ***
+WARNING *** PERMISSION FROM PRINCETON UNIVERSITY.                     ***
+WARNING *** Please contact Sharad Malik (malik@ee.princeton.edu)      ***
+WARNING *** for details.                                              ***
+
+NuSMV > read_model -i microwave.smv 
+NuSMV > flatten_hierarchy 
+NuSMV > encode_variables 
+NuSMV > build_model 
+NuSMV > pick_state -i              
+
+***************  AVAILABLE STATES  *************
+  
+  ================= State =================
+  0) -------------------------
+  closeDoor = TRUE
+  startOven = TRUE
+  reset = TRUE
+  done = TRUE
+  state = 0
+  
+  
+  ================= State =================
+  1) -------------------------
+  closeDoor = FALSE
+  
+  
+  ================= State =================
+  2) -------------------------
+  closeDoor = TRUE
+  startOven = FALSE
+  
+  
+  ================= State =================
+  3) -------------------------
+  closeDoor = FALSE
+  
+  
+  ================= State =================
+  4) -------------------------
+  closeDoor = TRUE
+  startOven = TRUE
+  reset = FALSE
+  
+  
+  ================= State =================
+  5) -------------------------
+  closeDoor = FALSE
+  
+  
+  ================= State =================
+  6) -------------------------
+  closeDoor = TRUE
+  startOven = FALSE
+  
+  
+  ================= State =================
+  7) -------------------------
+  closeDoor = FALSE
+  
+  
+  ================= State =================
+  8) -------------------------
+  closeDoor = TRUE
+  startOven = TRUE
+  reset = TRUE
+  done = FALSE
+  
+  
+  ================= State =================
+  9) -------------------------
+  closeDoor = FALSE
+  
+  
+  ================= State =================
+  10) -------------------------
+  closeDoor = TRUE
+  startOven = FALSE
+  
+  
+  ================= State =================
+  11) -------------------------
+  closeDoor = FALSE
+  
+  
+  ================= State =================
+  12) -------------------------
+  closeDoor = TRUE
+  startOven = TRUE
+  reset = FALSE
+  
+  
+  ================= State =================
+  13) -------------------------
+  closeDoor = FALSE
+  
+  
+  ================= State =================
+  14) -------------------------
+  closeDoor = TRUE
+  startOven = FALSE
+  
+  
+  ================= State =================
+  15) -------------------------
+  closeDoor = FALSE
+  
+
+Choose a state from the above (0-15): 15
+
+Chosen state is: 15
+NuSMV > pick_state -r
+NuSMV >  print current state -v
+unknown command 'print'
+NuSMV > print_current_state -v
+Current state is 2.1
+closeDoor = FALSE
+startOven = TRUE
+reset = FALSE
+done = TRUE
+state = 0
+NuSMV > simulate -r -k 3
+********  Simulation Starting From State 2.1   ********
+NuSMV > show_traces -t
+There are 2 traces currently available.
+NuSMV > show_traces -v
+    <!-- ################### Trace number: 2 ################### -->
+Trace Description: Simulation Trace 
+Trace Type: Simulation 
+  -> State: 2.1 <-
+    closeDoor = FALSE
+    startOven = TRUE
+    reset = FALSE
+    done = TRUE
+    state = 0
+  -> State: 2.2 <-
+    closeDoor = FALSE
+    startOven = FALSE
+    reset = TRUE
+    done = FALSE
+    state = 1001
+  -> State: 2.3 <-
+    closeDoor = FALSE
+    startOven = TRUE
+    reset = FALSE
+    done = TRUE
+    state = 1100
+  -> State: 2.4 <-
+    closeDoor = FALSE
+    startOven = TRUE
+    reset = TRUE
+    done = TRUE
+    state = 1110
+NuSMV > simulate -r -k 3
+********  Simulation Starting From State 2.4   ********
+NuSMV > simulate -r -k 15
+********  Simulation Starting From State 2.7   ********
+NuSMV > show_traces -t   
+There are 2 traces currently available.
+NuSMV > show_traces -v 2 
+    <!-- ################### Trace number: 2 ################### -->
+Trace Description: Simulation Trace 
+Trace Type: Simulation 
+  -> State: 2.1 <-
+    closeDoor = FALSE
+    startOven = TRUE
+    reset = FALSE
+    done = TRUE
+    state = 0
+  -> State: 2.2 <-
+    closeDoor = FALSE
+    startOven = FALSE
+    reset = TRUE
+    done = FALSE
+    state = 1001
+  -> State: 2.3 <-
+    closeDoor = FALSE
+    startOven = TRUE
+    reset = FALSE
+    done = TRUE
+    state = 1100
+  -> State: 2.4 <-
+    closeDoor = FALSE
+    startOven = TRUE
+    reset = TRUE
+    done = TRUE
+    state = 1110
+  -> State: 2.5 <-
+    closeDoor = FALSE
+    startOven = FALSE
+    reset = FALSE
+    done = FALSE
+    state = 110
+  -> State: 2.6 <-
+    closeDoor = FALSE
+    startOven = FALSE
+    reset = FALSE
+    done = FALSE
+    state = 0
+  -> State: 2.7 <-
+    closeDoor = FALSE
+    startOven = FALSE
+    reset = FALSE
+    done = TRUE
+    state = 1110
+  -> State: 2.8 <-
+    closeDoor = FALSE
+    startOven = TRUE
+    reset = TRUE
+    done = TRUE
+    state = 110
+  -> State: 2.9 <-
+    closeDoor = TRUE
+    startOven = FALSE
+    reset = TRUE
+    done = TRUE
+    state = 0
+  -> State: 2.10 <-
+    closeDoor = FALSE
+    startOven = FALSE
+    reset = FALSE
+    done = FALSE
+    state = 100
+  -> State: 2.11 <-
+    closeDoor = FALSE
+    startOven = FALSE
+    reset = TRUE
+    done = FALSE
+    state = 0
+  -> State: 2.12 <-
+    closeDoor = TRUE
+    startOven = FALSE
+    reset = FALSE
+    done = FALSE
+    state = 1001
+  -> State: 2.13 <-
+    closeDoor = FALSE
+    startOven = TRUE
+    reset = TRUE
+    done = FALSE
+    state = 1101
+  -> State: 2.14 <-
+    closeDoor = TRUE
+    startOven = FALSE
+    reset = FALSE
+    done = FALSE
+    state = 100
+  -> State: 2.15 <-
+    closeDoor = TRUE
+    startOven = FALSE
+    reset = FALSE
+    done = FALSE
+    state = 100
+  -> State: 2.16 <-
+    closeDoor = TRUE
+    startOven = TRUE
+    reset = FALSE
+    done = FALSE
+    state = 1100
+  -> State: 2.17 <-
+    closeDoor = TRUE
+    startOven = FALSE
+    reset = FALSE
+    done = TRUE
+    state = 1110
+  -> State: 2.18 <-
+    closeDoor = TRUE
+    startOven = TRUE
+    reset = FALSE
+    done = TRUE
+    state = 110
+  -> State: 2.19 <-
+    closeDoor = TRUE
+    startOven = FALSE
+    reset = FALSE
+    done = FALSE
+    state = 100
+  -> State: 2.20 <-
+    closeDoor = FALSE
+    startOven = FALSE
+    reset = TRUE
+    done = FALSE
+    state = 110
+  -> State: 2.21 <-
+    closeDoor = FALSE
+    startOven = FALSE
+    reset = TRUE
+    done = TRUE
+    state = 0
+  -> State: 2.22 <-
+    closeDoor = TRUE
+    startOven = TRUE
+    reset = FALSE
+    done = FALSE
+    state = 1001
+NuSMV > 

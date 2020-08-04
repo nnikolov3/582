@@ -1,0 +1,243 @@
+# OpenFile source/tb_microwave.v
+vsim work.tb_microwave
+restart -f
+# Loading work.tb_microwave
+run -all
+#  Start Close Heat Error|startOven closeDoor reset done 
+#  x   x     x     x|         x    x     x     x 
+#  0   0     0     0|         x    x     x     x 
+#  0   0     0     0|         0    0     0     0 
+#  0   0     0     0|         0    1     0     0 
+#  0   1     0     0|         0    1     0     0 
+#  0   1     0     0|         1    1     0     0 
+#  1   1     0     0|         1    1     0     0 
+#  1   1     1     0|         1    1     0     0 
+#  0   1     1     0|         1    1     0     0 
+#  0   1     1     0|         1    1     0     1 
+#  0   1     0     0|         1    1     0     1 
+#  1   1     0     0|         1    1     0     1 
+#  1   1     1     0|         1    1     0     1 
+#  0   1     1     0|         1    1     0     1 
+#  0   1     0     0|         1    1     0     1 
+#  1   1     0     0|         1    1     0     1 
+#  1   1     1     0|         1    1     0     1 
+#  0   1     1     0|         1    1     0     1 
+#  0   1     0     0|         1    1     0     1 
+#  1   1     0     0|         1    1     0     1 
+#  1   1     1     0|         1    1     0     1 
+#  0   1     1     0|         1    1     0     1 
+#  0   1     0     0|         1    1     0     1 
+#  1   1     0     0|         1    1     0     1 
+#  1   1     1     0|         1    1     0     1 
+#  0   1     1     0|         1    1     0     1 
+#  0   1     0     0|         1    1     0     1 
+#  1   1     0     0|         1    1     0     1 
+#  1   1     1     0|         1    1     0     1 
+#  0   1     1     0|         1    1     0     1 
+#  0   1     0     0|         1    1     0     1 
+#  1   1     0     0|         1    1     0     1 
+#  1   1     1     0|         1    1     0     1 
+#  0   1     1     0|         1    1     0     1 
+#  0   1     0     0|         1    1     0     1 
+#  1   1     0     0|         1    1     0     1 
+#  1   1     1     0|         1    1     0     1 
+#  0   1     1     0|         1    1     0     1 
+#  0   1     0     0|         1    1     0     1 
+#  1   1     0     0|         1    1     0     1 
+# ** Note: $finish    : /home/nik/Documents/582_PROJ/projects/project_3/source/tb_microwave.v(52)
+#    Time: 500 ns  Iteration: 0  Instance: /tb_microwave
+# 1
+# Break in Module tb_microwave at /home/nik/Documents/582_PROJ/projects/project_3/source/tb_microwave.v line 52
+vlog -reportprogress 300 -work work /home/nik/Documents/582_PROJ/projects/project_3/source/tb_microwave.v
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 22:41:48 on Aug 03,2020
+# vlog -reportprogress 300 -work work /home/nik/Documents/582_PROJ/projects/project_3/source/tb_microwave.v 
+# -- Compiling module tb_microwave
+# 
+# Top level modules:
+# 	tb_microwave
+# End time: 22:41:48 on Aug 03,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vsim work.tb_microwave
+# End time: 22:42:02 on Aug 03,2020, Elapsed time: 0:16:24
+# Errors: 0, Warnings: 0
+# vsim work.tb_microwave 
+# Start time: 22:42:02 on Aug 03,2020
+# Loading work.tb_microwave
+# Loading work.microwave
+vlog -reportprogress 300 -work work /home/nik/Documents/582_PROJ/projects/project_3/source/tb_microwave.v
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 22:42:08 on Aug 03,2020
+# vlog -reportprogress 300 -work work /home/nik/Documents/582_PROJ/projects/project_3/source/tb_microwave.v 
+# -- Compiling module tb_microwave
+# 
+# Top level modules:
+# 	tb_microwave
+# End time: 22:42:08 on Aug 03,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vsim work.tb_microwave
+# End time: 22:42:17 on Aug 03,2020, Elapsed time: 0:00:15
+# Errors: 0, Warnings: 0
+# vsim work.tb_microwave 
+# Start time: 22:42:17 on Aug 03,2020
+# Loading work.tb_microwave
+# Loading work.microwave
+run -all
+#  Start Close Heat Error| startOven closeDoor reset done 
+#  x   x     x     x|         x    x     x     x 
+#  0   0     0     0|         x    x     x     x 
+#  0   0     0     0|         0    0     0     0 
+#  0   0     0     0|         0    1     0     0 
+#  0   1     0     0|         0    1     0     0 
+#  0   1     0     0|         1    1     0     0 
+#  1   1     0     0|         1    1     0     0 
+#  1   1     1     0|         1    1     0     0 
+#  0   1     1     0|         1    1     0     0 
+#  0   1     1     0|         1    1     0     1 
+#  0   1     0     0|         1    1     0     1 
+#  1   1     0     0|         1    1     0     1 
+#  1   1     1     0|         1    1     0     1 
+#  0   1     1     0|         1    1     0     1 
+#  0   1     1     0|         1    1     0     0 
+#  0   1     1     0|         0    0     0     0 
+#  0   0     0     0|         0    0     0     0 
+#  0   0     0     0|         1    0     0     0 
+#  1   0     0     1|         1    0     0     0 
+#  1   0     0     1|         1    1     1     0 
+#  1   1     0     1|         1    1     1     0 
+#  0   1     0     0|         1    1     1     0 
+#  1   1     0     0|         1    1     1     0 
+#  1   1     1     0|         1    1     1     0 
+#  1   1     1     0|         1    1     0     0 
+#  0   1     1     0|         1    1     0     0 
+#  0   1     1     0|         1    0     0     0 
+#  0   0     0     0|         1    0     0     0 
+#  1   0     0     1|         1    0     0     0 
+#  1   0     0     1|         1    1     0     1 
+#  1   1     0     1|         1    1     0     1 
+# ** Note: $finish    : /home/nik/Documents/582_PROJ/projects/project_3/source/tb_microwave.v(61)
+#    Time: 1 us  Iteration: 0  Instance: /tb_microwave
+# 1
+# Break in Module tb_microwave at /home/nik/Documents/582_PROJ/projects/project_3/source/tb_microwave.v line 61
+vsim work.tb_microwave
+# End time: 22:42:49 on Aug 03,2020, Elapsed time: 0:00:32
+# Errors: 0, Warnings: 0
+# vsim work.tb_microwave 
+# Start time: 22:42:49 on Aug 03,2020
+# Loading work.tb_microwave
+# Loading work.microwave
+add wave sim:/tb_microwave/*
+run -all
+#  Start Close Heat Error|       startOven closeDoor reset done 
+#  x   x     x     x|         x    x     x     x 
+#  0   0     0     0|         x    x     x     x 
+#  0   0     0     0|         0    0     0     0 
+#  0   0     0     0|         0    1     0     0 
+#  0   1     0     0|         0    1     0     0 
+#  0   1     0     0|         1    1     0     0 
+#  1   1     0     0|         1    1     0     0 
+#  1   1     1     0|         1    1     0     0 
+#  0   1     1     0|         1    1     0     0 
+#  0   1     1     0|         1    1     0     1 
+#  0   1     0     0|         1    1     0     1 
+#  1   1     0     0|         1    1     0     1 
+#  1   1     1     0|         1    1     0     1 
+#  0   1     1     0|         1    1     0     1 
+#  0   1     1     0|         1    1     0     0 
+#  0   1     1     0|         0    0     0     0 
+#  0   0     0     0|         0    0     0     0 
+#  0   0     0     0|         1    0     0     0 
+#  1   0     0     1|         1    0     0     0 
+#  1   0     0     1|         1    1     1     0 
+#  1   1     0     1|         1    1     1     0 
+#  0   1     0     0|         1    1     1     0 
+#  1   1     0     0|         1    1     1     0 
+#  1   1     1     0|         1    1     1     0 
+#  1   1     1     0|         1    1     0     0 
+#  0   1     1     0|         1    1     0     0 
+#  0   1     1     0|         1    0     0     0 
+#  0   0     0     0|         1    0     0     0 
+#  1   0     0     1|         1    0     0     0 
+#  1   0     0     1|         1    1     0     1 
+#  1   1     0     1|         1    1     0     1 
+# ** Note: $finish    : /home/nik/Documents/582_PROJ/projects/project_3/source/tb_microwave.v(61)
+#    Time: 1 us  Iteration: 0  Instance: /tb_microwave
+# 1
+# Break in Module tb_microwave at /home/nik/Documents/582_PROJ/projects/project_3/source/tb_microwave.v line 61
+vlog -reportprogress 300 -work work /home/nik/Documents/582_PROJ/projects/project_3/source/tb_microwave.v
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 22:46:10 on Aug 03,2020
+# vlog -reportprogress 300 -work work /home/nik/Documents/582_PROJ/projects/project_3/source/tb_microwave.v 
+# -- Compiling module tb_microwave
+# 
+# Top level modules:
+# 	tb_microwave
+# End time: 22:46:10 on Aug 03,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vsim work.tb_microwave
+# End time: 22:46:19 on Aug 03,2020, Elapsed time: 0:03:30
+# Errors: 0, Warnings: 0
+# vsim work.tb_microwave 
+# Start time: 22:46:19 on Aug 03,2020
+# Loading work.tb_microwave
+# Loading work.microwave
+add wave -r sim:/tb_microwave/*
+add wave sim:/tb_microwave/*
+vsim work.tb_microwave
+# End time: 22:46:42 on Aug 03,2020, Elapsed time: 0:00:23
+# Errors: 0, Warnings: 0
+# vsim work.tb_microwave 
+# Start time: 22:46:42 on Aug 03,2020
+# Loading work.tb_microwave
+# Loading work.microwave
+run -all
+#  Start Close Heat Error|       startOven closeDoor reset done 
+#  x   x     x     x|         x    x     x     x 
+#  0   0     0     0|         x    x     x     x 
+#  0   0     0     0|         0    0     0     0 
+#  0   0     0     0|         0    1     0     0 
+#  0   1     0     0|         0    1     0     0 
+#  0   1     0     0|         1    1     0     0 
+#  1   1     0     0|         1    1     0     0 
+#  1   1     1     0|         1    1     0     0 
+#  0   1     1     0|         1    1     0     0 
+#  0   1     1     0|         1    1     0     1 
+#  0   1     0     0|         1    1     0     1 
+#  1   1     0     0|         1    1     0     1 
+#  1   1     1     0|         1    1     0     1 
+#  0   1     1     0|         1    1     0     1 
+#  0   1     1     0|         1    1     0     0 
+#  0   1     1     0|         0    0     0     0 
+#  0   0     0     0|         0    0     0     0 
+#  0   0     0     0|         1    0     0     0 
+#  1   0     0     1|         1    0     0     0 
+#  1   0     0     1|         1    1     1     0 
+#  1   1     0     1|         1    1     1     0 
+#  0   1     0     0|         1    1     1     0 
+#  1   1     0     0|         1    1     1     0 
+#  1   1     1     0|         1    1     1     0 
+#  1   1     1     0|         1    1     0     0 
+#  0   1     1     0|         1    1     0     0 
+#  0   1     1     0|         1    0     0     0 
+#  0   0     0     0|         1    0     0     0 
+#  1   0     0     1|         1    0     0     0 
+#  1   0     0     1|         1    1     0     1 
+#  1   1     0     1|         1    1     0     1 
+#  1   1     0     1|         0    0     0     0 
+#  1   0     0     1|         0    0     0     0 
+#  1   0     0     1|         1    0     0     0 
+#  1   0     0     1|         1    1     0     0 
+#  1   1     0     1|         1    1     0     0 
+#  1   1     0     1|         1    1     1     0 
+#  0   1     0     0|         1    1     1     0 
+#  1   1     0     0|         1    1     1     0 
+#  1   1     1     0|         1    1     1     0 
+#  0   1     1     0|         1    1     1     0 
+#  0   1     1     0|         1    1     0     0 
+#  0   1     1     0|         1    0     0     0 
+#  0   0     0     0|         1    0     0     0 
+#  1   0     0     1|         1    0     0     0 
+# ** Note: $finish    : /home/nik/Documents/582_PROJ/projects/project_3/source/tb_microwave.v(69)
+#    Time: 1 us  Iteration: 0  Instance: /tb_microwave
+# 1
+# Break in Module tb_microwave at /home/nik/Documents/582_PROJ/projects/project_3/source/tb_microwave.v line 69

@@ -1,0 +1,22 @@
+MODULE main
+VAR
+    closeDoor : boolean;
+    startOven : boolean;
+    reset 	:boolean;
+    done 	:boolean;
+    state : {0000,0100,1001,1100,1110,0110,1101};
+ASSIGN
+    init(state) := 0000;
+    next (state) := case
+        state = 0000 & closeDoor = TRUE: 0100;
+	state = 0000 & startOven = TRUE: 1001;
+	state = 0100 & startOven = TRUE: 1100;
+	state = 1001 & closeDoor = TRUE: 1101;
+	state = 1101 & reset = TRUE : 0100;
+	state = 1100 : 1110;
+	state = 1110 : 0110; 
+	state = 0110 & closeDoor = FALSE : 0000;
+	state = 0110 & done = TRUE : 0100;
+	state = 0100 & closeDoor = FALSE : 0000;
+        TRUE : {0000,0100,1001,1100,1110,0110,1101};
+esac;

@@ -1245,26 +1245,58 @@ State Diagram for Microwave
 \begin_layout Standard
 \noindent
 1.
- If a Start signal occurs then there is eventually a closeDoor signal
+ If a startOven signal occurs then there is eventually a closeDoor signal
+\end_layout
+
+\begin_layout Standard
+AG (startOven 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ AF closeDoor)
 \end_layout
 
 \begin_layout Standard
 \noindent
 2.
- If a Start signal occurs then there is eventually a not closeDoor signal
+ If a startOven signal occurs then there is eventually a not closeDoor signal
+\end_layout
+
+\begin_layout Standard
+AG (startOven 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ AF ~closeDoor)
 \end_layout
 
 \begin_layout Standard
 \noindent
 3.
- If eventually a Heat signal occurs then there is eventually a not Heat
- signal
+ If eventually a reset signal occurs then eventually a startOven signal
+ will occur
+\end_layout
+
+\begin_layout Standard
+AF (reset 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ EF startOven)
 \end_layout
 
 \begin_layout Standard
 \noindent
 4.
- For all paths Heat signal will not occur until Start occurs
+ For all paths startOven signal will not occur until closeDoor occurs
+\end_layout
+
+\begin_layout Standard
+AG (startOven 
+\begin_inset Formula $\cup$
+\end_inset
+
+ closeDoor)
 \end_layout
 
 \begin_layout Standard
@@ -1274,10 +1306,18 @@ State Diagram for Microwave
 \end_layout
 
 \begin_layout Standard
+AF closedDoor
+\end_layout
+
+\begin_layout Standard
 \noindent
 \align left
 6.
- The signal Heat holds infinitely often
+ The signal startOven holds infinitely often
+\end_layout
+
+\begin_layout Standard
+AF startOven
 \end_layout
 
 \begin_layout Subsubsection*
@@ -1287,11 +1327,2075 @@ State Diagram for Microwave
 \end_layout
 
 \begin_layout Subsubsection*
+\noindent
+Testbench
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+`timescale 1 ns/10 ps
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+module tb_microwave();
+\end_layout
+
+\begin_layout Plain Layout
+
+   reg  clk, sys_reset, reset, closeDoor, startOven, done;
+\end_layout
+
+\begin_layout Plain Layout
+
+   wire Start, Close, Heat, Error;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   microwave DUT (
+\end_layout
+
+\begin_layout Plain Layout
+
+                  .clk(clk),
+\end_layout
+
+\begin_layout Plain Layout
+
+                  .sys_reset(sys_reset), 
+\end_layout
+
+\begin_layout Plain Layout
+
+                  .reset(reset), 
+\end_layout
+
+\begin_layout Plain Layout
+
+                  .closeDoor(closeDoor), 
+\end_layout
+
+\begin_layout Plain Layout
+
+                  .startOven(startOven), 
+\end_layout
+
+\begin_layout Plain Layout
+
+                  .done(done),
+\end_layout
+
+\begin_layout Plain Layout
+
+                  .Start(Start),
+\end_layout
+
+\begin_layout Plain Layout
+
+                  .Close(Close),
+\end_layout
+
+\begin_layout Plain Layout
+
+                  .Heat(Heat),
+\end_layout
+
+\begin_layout Plain Layout
+
+                  .Error(Error)
+\end_layout
+
+\begin_layout Plain Layout
+
+                  );
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   initial
+\end_layout
+
+\begin_layout Plain Layout
+
+     begin
+\end_layout
+
+\begin_layout Plain Layout
+
+        #20 sys_reset = 1'b1;
+\end_layout
+
+\begin_layout Plain Layout
+
+        #20 sys_reset = 1'b0;
+\end_layout
+
+\begin_layout Plain Layout
+
+     end
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   initial
+\end_layout
+
+\begin_layout Plain Layout
+
+     begin
+\end_layout
+
+\begin_layout Plain Layout
+
+        clk= 1'b0;
+\end_layout
+
+\begin_layout Plain Layout
+
+     end
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   always
+\end_layout
+
+\begin_layout Plain Layout
+
+     begin
+\end_layout
+
+\begin_layout Plain Layout
+
+        #5 clk= ~clk;
+\end_layout
+
+\begin_layout Plain Layout
+
+     end
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   initial
+\end_layout
+
+\begin_layout Plain Layout
+
+     begin
+\end_layout
+
+\begin_layout Plain Layout
+
+        #40 closeDoor = 1'b0; startOven = 1'b0; reset = 1'b0; done = 1'b0;
+\end_layout
+
+\begin_layout Plain Layout
+
+        #40 closeDoor = 1'b0; startOven = 1'b0; reset = 1'b0; done = 1'b0;
+\end_layout
+
+\begin_layout Plain Layout
+
+        #40 closeDoor = 1'b1; startOven = 1'b0; reset = 1'b0; done = 1'b0;
+\end_layout
+
+\begin_layout Plain Layout
+
+        #40 closeDoor = 1'b1; startOven = 1'b1; reset = 1'b0; done = 1'b0;
+\end_layout
+
+\begin_layout Plain Layout
+
+        #40 closeDoor = 1'b1; startOven = 1'b1; reset = 1'b0; done = 1'b1;
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+        #40 closeDoor = 1'b1; startOven = 1'b1; reset = 1'b0; done = 1'b0;
+\end_layout
+
+\begin_layout Plain Layout
+
+        #40 closeDoor = 1'b1; startOven = 1'b1; reset = 1'b0; done = 1'b0;
+\end_layout
+
+\begin_layout Plain Layout
+
+        #40 closeDoor = 1'b0; startOven = 1'b0; reset = 1'b0; done = 1'b0;
+\end_layout
+
+\begin_layout Plain Layout
+
+        #40 closeDoor = 1'b0; startOven = 1'b1; reset = 1'b0; done = 1'b0;
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+        #40 closeDoor = 1'b1; startOven = 1'b1; reset = 1'b1; done = 1'b0;
+\end_layout
+
+\begin_layout Plain Layout
+
+        #40 closeDoor = 1'b1; startOven = 1'b1; reset = 1'b0; done = 1'b0;
+\end_layout
+
+\begin_layout Plain Layout
+
+        #40 closeDoor = 1'b0; startOven = 1'b1; reset = 1'b0; done = 1'b0;
+\end_layout
+
+\begin_layout Plain Layout
+
+        #40 closeDoor = 1'b1; startOven = 1'b1; reset = 1'b0; done = 1'b1;
+\end_layout
+
+\begin_layout Plain Layout
+
+        #40 closeDoor = 1'b0; startOven = 1'b0; reset = 1'b0; done = 1'b0;
+\end_layout
+
+\begin_layout Plain Layout
+
+        #40 closeDoor = 1'b0; startOven = 1'b0; reset = 1'b0; done = 1'b0;
+\end_layout
+
+\begin_layout Plain Layout
+
+        #40 closeDoor = 1'b0; startOven = 1'b1; reset = 1'b0; done = 1'b0;
+\end_layout
+
+\begin_layout Plain Layout
+
+        #40 closeDoor = 1'b1; startOven = 1'b1; reset = 1'b0; done = 1'b0;
+\end_layout
+
+\begin_layout Plain Layout
+
+        #40 closeDoor = 1'b1; startOven = 1'b1; reset = 1'b1; done = 1'b0;
+\end_layout
+
+\begin_layout Plain Layout
+
+        #40 closeDoor = 1'b1; startOven = 1'b1; reset = 1'b1; done = 1'b0;
+\end_layout
+
+\begin_layout Plain Layout
+
+        #40 closeDoor = 1'b1; startOven = 1'b1; reset = 1'b0; done = 1'b0;
+\end_layout
+
+\begin_layout Plain Layout
+
+        #40 closeDoor = 1'b0; startOven = 1'b1; reset = 1'b0; done = 1'b0;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+     end
+\end_layout
+
+\begin_layout Plain Layout
+
+  initial 
+\end_layout
+
+\begin_layout Plain Layout
+
+    begin
+\end_layout
+
+\begin_layout Plain Layout
+
+       $display(" Start Close Heat Error|       startOven closeDoor reset
+ done ");
+\end_layout
+
+\begin_layout Plain Layout
+
+       $monitor(" %1b   %1b     %1b     %1b|         %1b    %1b     %1b
+     %1b ", Start, Close, Heat, Error, startOven, closeDoor, reset, done);
+\end_layout
+
+\begin_layout Plain Layout
+
+    end
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+  initial
+\end_layout
+
+\begin_layout Plain Layout
+
+    begin  
+\end_layout
+
+\begin_layout Plain Layout
+
+       #1000 $finish;
+\end_layout
+
+\begin_layout Plain Layout
+
+    end 
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+endmodule //tb_microwave
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Trace from Testbench
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Loading work.microwave
+\end_layout
+
+\begin_layout Plain Layout
+
+run -all
+\end_layout
+
+\begin_layout Plain Layout
+
+#  Start Close Heat Error| startOven closeDoor reset done 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  x   x     x     x|         x    x     x     x 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  0   0     0     0|         x    x     x     x 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  0   0     0     0|         0    0     0     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  0   0     0     0|         0    1     0     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  0   1     0     0|         0    1     0     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  0   1     0     0|         1    1     0     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  1   1     0     0|         1    1     0     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  1   1     1     0|         1    1     0     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  0   1     1     0|         1    1     0     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  0   1     1     0|         1    1     0     1 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  0   1     0     0|         1    1     0     1 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  1   1     0     0|         1    1     0     1 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  1   1     1     0|         1    1     0     1 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  0   1     1     0|         1    1     0     1 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  0   1     1     0|         1    1     0     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  0   1     1     0|         0    0     0     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  0   0     0     0|         0    0     0     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  0   0     0     0|         1    0     0     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  1   0     0     1|         1    0     0     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  1   0     0     1|         1    1     1     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  1   1     0     1|         1    1     1     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  0   1     0     0|         1    1     1     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  1   1     0     0|         1    1     1     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  1   1     1     0|         1    1     1     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  1   1     1     0|         1    1     0     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  0   1     1     0|         1    1     0     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  0   1     1     0|         1    0     0     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  0   0     0     0|         1    0     0     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  1   0     0     1|         1    0     0     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  1   0     0     1|         1    1     0     1 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  1   1     0     1|         1    1     0     1 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  1   1     0     1|         0    0     0     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  1   0     0     1|         0    0     0     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  1   0     0     1|         1    0     0     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  1   0     0     1|         1    1     0     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  1   1     0     1|         1    1     0     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  1   1     0     1|         1    1     1     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  0   1     0     0|         1    1     1     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  1   1     0     0|         1    1     1     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  1   1     1     0|         1    1     1     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  0   1     1     0|         1    1     1     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  0   1     1     0|         1    1     0     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  0   1     1     0|         1    0     0     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  0   0     0     0|         1    0     0     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#  1   0     0     1|         1    0     0     0 
+\end_layout
+
+\begin_layout Plain Layout
+
+# ** Note: $finish    : /home/nik/Documents/582_PROJ/projects/project_3/source/t
+b_microwave.v(69)
+\end_layout
+
+\begin_layout Plain Layout
+
+#    Time: 1 us  Iteration: 0  Instance: /tb_microwave
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
 4) Model the design in NuSMV
 \end_layout
 
 \begin_layout Subsubsection*
+Model in NuSMV
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+MODULE main
+\end_layout
+
+\begin_layout Plain Layout
+
+VAR
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor : boolean;
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven : boolean;
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset 	:boolean;
+\end_layout
+
+\begin_layout Plain Layout
+
+    done 	:boolean;
+\end_layout
+
+\begin_layout Plain Layout
+
+    state : {0000,0100,1001,1100,1110,0110,1101};
+\end_layout
+
+\begin_layout Plain Layout
+
+ASSIGN
+\end_layout
+
+\begin_layout Plain Layout
+
+    init(state) := 0000;
+\end_layout
+
+\begin_layout Plain Layout
+
+    next (state) := case
+\end_layout
+
+\begin_layout Plain Layout
+
+        state = 0000 & closeDoor = TRUE: 0100;
+\end_layout
+
+\begin_layout Plain Layout
+
+	state = 0000 & startOven = TRUE: 1001;
+\end_layout
+
+\begin_layout Plain Layout
+
+	state = 0100 & startOven = TRUE: 1100;
+\end_layout
+
+\begin_layout Plain Layout
+
+	state = 1001 & closeDoor = TRUE: 1101;
+\end_layout
+
+\begin_layout Plain Layout
+
+	state = 1101 & reset = TRUE : 0100;
+\end_layout
+
+\begin_layout Plain Layout
+
+	state = 1100 : 1110;
+\end_layout
+
+\begin_layout Plain Layout
+
+	state = 1110 : 0110; 
+\end_layout
+
+\begin_layout Plain Layout
+
+	state = 0110 & closeDoor = FALSE : 0000;
+\end_layout
+
+\begin_layout Plain Layout
+
+	state = 0110 & done = TRUE : 0100;
+\end_layout
+
+\begin_layout Plain Layout
+
+	state = 0100 & closeDoor = FALSE : 0000;
+\end_layout
+
+\begin_layout Plain Layout
+
+        TRUE : {0000,0100,1001,1100,1110,0110,1101};
+\end_layout
+
+\begin_layout Plain Layout
+
+esac;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Trace from NuSMV
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+NuSMV > show_traces -t
+\end_layout
+
+\begin_layout Plain Layout
+
+There are 2 traces currently available.
+\end_layout
+
+\begin_layout Plain Layout
+
+NuSMV > show_traces -v
+\end_layout
+
+\begin_layout Plain Layout
+
+    <!-- ################### Trace number: 2 ################### -->
+\end_layout
+
+\begin_layout Plain Layout
+
+Trace Description: Simulation Trace 
+\end_layout
+
+\begin_layout Plain Layout
+
+Trace Type: Simulation 
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 2.1 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 2.2 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 1001
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 2.3 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 1100
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 2.4 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 1110
+\end_layout
+
+\begin_layout Plain Layout
+
+NuSMV > simulate -r -k 3
+\end_layout
+
+\begin_layout Plain Layout
+
+********  Simulation Starting From State 2.4   ********
+\end_layout
+
+\begin_layout Plain Layout
+
+NuSMV > simulate -r -k 15
+\end_layout
+
+\begin_layout Plain Layout
+
+********  Simulation Starting From State 2.7   ********
+\end_layout
+
+\begin_layout Plain Layout
+
+NuSMV > show_traces -t   
+\end_layout
+
+\begin_layout Plain Layout
+
+There are 2 traces currently available.
+\end_layout
+
+\begin_layout Plain Layout
+
+NuSMV > show_traces -v 2 
+\end_layout
+
+\begin_layout Plain Layout
+
+    <!-- ################### Trace number: 2 ################### -->
+\end_layout
+
+\begin_layout Plain Layout
+
+Trace Description: Simulation Trace 
+\end_layout
+
+\begin_layout Plain Layout
+
+Trace Type: Simulation 
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 2.1 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 2.2 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 1001
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 2.3 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 1100
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 2.4 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 1110
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 2.5 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 110
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 2.6 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 2.7 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 1110
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 2.8 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 110
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 2.9 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 2.10 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 100
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 2.11 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 2.12 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 1001
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 2.13 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 1101
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 2.14 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 100
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 2.15 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 100
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 2.16 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 1100
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 2.17 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 1110
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 2.18 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 110
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 2.19 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 100
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 2.20 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 110
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 2.21 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 2.22 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 1001
+\end_layout
+
+\begin_layout Plain Layout
+
+NuSMV > 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
 5) Prove/disprove them by the NuSMV package.
+\end_layout
+
+\begin_layout Standard
+1) 
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+uSMV > check_ctlspec -p "AG(startOven -> AF closeDoor)"
+\end_layout
+
+\begin_layout Plain Layout
+
+-- specification AG (startOven -> AF closeDoor)  is false
+\end_layout
+
+\begin_layout Plain Layout
+
+-- as demonstrated by the following execution sequence
+\end_layout
+
+\begin_layout Plain Layout
+
+Trace Description: CTL Counterexample 
+\end_layout
+
+\begin_layout Plain Layout
+
+Trace Type: Counterexample 
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 3.1 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+  -- Loop starts here
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 3.2 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 3.3 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 1001
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 3.4 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+2)
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+SMV > check_ctlspec -p "AG(startOven -> AF closeDoor=FALSE)"
+\end_layout
+
+\begin_layout Plain Layout
+
+-- specification AG (startOven -> AF closeDoor = FALSE)  is false
+\end_layout
+
+\begin_layout Plain Layout
+
+-- as demonstrated by the following execution sequence
+\end_layout
+
+\begin_layout Plain Layout
+
+Trace Description: CTL Counterexample 
+\end_layout
+
+\begin_layout Plain Layout
+
+Trace Type: Counterexample 
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 4.1 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    reset = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    done = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+  -- Loop starts here
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 4.2 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    closeDoor = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 4.3 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = FALSE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 100
+\end_layout
+
+\begin_layout Plain Layout
+
+  -> State: 4.4 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    startOven = TRUE
+\end_layout
+
+\begin_layout Plain Layout
+
+    state = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+3) 
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+NuSMV > check_ctlspec -p "AF(reset -> EF startOven)"         
+\end_layout
+
+\begin_layout Plain Layout
+
+-- specification
+\end_layout
+
+\begin_layout Plain Layout
+
+AF (reset -> EF startOven)  is true
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+4)
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+NuSMV > check_ctlspec -p "EF(startOven -> closeDoor)"
+\end_layout
+
+\begin_layout Plain Layout
+
+-- specification EF (startOven -> closeDoor)  is true
+\end_layout
+
+\begin_layout Plain Layout
+
+NuSMV > 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+5) 
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+uSMV > check_ctlspec -p "EF(startOven -> closeDoor)"
+\end_layout
+
+\begin_layout Plain Layout
+
+-- specification EF (startOven -> closeDoor)  is true
+\end_layout
+
+\begin_layout Plain Layout
+
+NuSMV > check_ctlspec -p "EF(startOven)"             
+\end_layout
+
+\begin_layout Plain Layout
+
+-- specification EF startOven  is true
+\end_layout
+
+\begin_layout Plain Layout
+
+NuSMV > check_ctlspec -p "EF(closeDoor)"
+\end_layout
+
+\begin_layout Plain Layout
+
+-- specification EF closeDoor  is true
+\end_layout
+
+\begin_layout Plain Layout
+
+NuSMV > check_ctlspec -p "EF(reset)"    
+\end_layout
+
+\begin_layout Plain Layout
+
+-- specification EF reset  is true
+\end_layout
+
+\begin_layout Plain Layout
+
+NuSMV > check_ctlspec -p "EF(done)" 
+\end_layout
+
+\begin_layout Plain Layout
+
+-- specification EF done  is true
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+6)
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+NuSMV > check_ctlspec -p "EF(done -> closeDoor)"     
+\end_layout
+
+\begin_layout Plain Layout
+
+-- specification EF (done -> closeDoor)  is true
+\end_layout
+
+\begin_layout Plain Layout
+
+NuSMV > check_ctlspec -p "EF(reset -> closeDoor)"
+\end_layout
+
+\begin_layout Plain Layout
+
+-- specification EF (reset -> closeDoor)  is true
+\end_layout
+
+\begin_layout Plain Layout
+
+NuSMV > check_ctlspec -p "EF(reset -> startOven)"
+\end_layout
+
+\begin_layout Plain Layout
+
+-- specification EF (reset -> startOven)  is true
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection*
@@ -1299,9 +3403,27 @@ State Diagram for Microwave
  your expectation.
 \end_layout
 
+\begin_layout Standard
+The results do meet my expectations.
+ For example I would expect that in # 1 "AG(startOven -> AF closeDoor)"
+ will be false since it not for every path startOven preceeds closeDoor.
+ It is possible to have startOven and not closed door.
+ Overall, all the results confirm with the expected behavior.
+ 
+\end_layout
+
 \begin_layout Subsubsection*
 7) Compare the model checking to simulation, and discuss the advantages
  and disadvantages of the above two verification methods.
+\end_layout
+
+\begin_layout Standard
+Model checking is superior.
+ Despite that I run multiple cases in the testbench, it failed to capture
+ a lot of the missing states that model checking was able to analyze.
+ What is more, model checking was able to uncover many conditions that the
+ test bench did not cover.
+ 
 \end_layout
 
 \end_body
